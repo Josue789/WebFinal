@@ -1,0 +1,89 @@
+.caja-izquierda{
+    background-color: white;
+    width: 60%;
+}
+
+.caja-derecha{  
+    width: 40%;
+    background-color: rgba(220, 220, 220, 0.495);
+}
+
+.caja-derecha img{
+    text-align: center;
+}
+
+form{
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario{
+    border: black 2px solid;
+    border-radius: 25px;
+    padding: 5%;
+    background-color: #d8d8d8; 
+    justify-content: center;
+}
+
+.caja-principal{
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    display: flex;
+    margin-bottom: 3%;
+}
+
+.caja-principal .imagen{
+    background-color: #d8d8d8;
+}
+
+.caja-secundaria{
+    width: 100%;
+    margin-top: 4%;
+    text-align: right;
+}
+
+.caja-tercearia{
+    width: 100%;
+    margin-top: 4%;
+    text-align: center;
+}
+
+.boton{
+    width: 100%;
+    text-align: center;
+}
+
+.btn-iniciar{
+    padding: 10px 20px;
+    background-color: #7d7d7d;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 30%;
+}
+
+.btn-iniciar:hover{
+    background-color: #d8d8d8;
+}
+
+.titulo{
+    text-align: center;
+    font-size: 250%;
+    padding-left: 15%;
+    padding-right: 10%;
+}
+
+.caja-texto{
+    width: 100%;
+    background-color: #d8d8d8;
+}
+
+.logo_tecnm{
+    text-align: center;
+}
