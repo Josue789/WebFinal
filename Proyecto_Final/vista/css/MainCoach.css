@@ -2,3 +2,18 @@
     margin: 0;
     padding: 0;
 }
+
+footer{
+    height: 10%;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+}
+
+.MenuInf{
+    background-color: rgb(216, 211, 211);
+    padding: 0.7rem;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
