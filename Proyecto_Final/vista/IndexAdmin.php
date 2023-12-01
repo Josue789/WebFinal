@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">    
+    <link rel="stylesheet" href="css/bootstrap.min.css">    
     <link rel="stylesheet" href="css/Registro.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
@@ -50,11 +50,11 @@
 
           <div class="row justify-content-between">
               <div class="col-6">
-                  <a href="login.html" class=" btn btn-outline-danger" type="button">Cerrar sesión</a> 
+                  <a href="login.php" class=" btn btn-outline-danger" type="button">Cerrar sesión</a> 
               </div>
               
               <div class="col-2  ">
-                  <a class=" btn btn-primary" type="submit" href="RegistroUsuario.html">Nuevo usuario</a>
+                  <a class=" btn btn-primary" type="submit" href="RegistroUsuario.php">Nuevo usuario</a>
               </div>
               
           </div>      
@@ -71,9 +71,9 @@
               <div>
                 <nav class="nav flex-column nav-underline">
                   <a class="nav-link active" aria-current="page" href="#">Usuarios</a>
-                  <a class="nav-link" href="concursos.html">Concursos</a>
-                  <a class="nav-link" href="DescargaListas.html">Descargar listas</a>
-                  <a class="btn btn-danger" href="login.html" >Cerrar sesion</a>
+                  <a class="nav-link" href="concursos.php">Concursos</a>
+                  <a class="nav-link" href="DescargaListas.php">Descargar listas</a>
+                  <a class="btn btn-danger" href="login.php" >Cerrar sesion</a>
                 </nav>
               </div>
             </div>

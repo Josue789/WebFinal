@@ -33,21 +33,21 @@
           <div class="form-check display-6 mt-2 ">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
             <label class="form-check-label" for="flexCheckDefault">
-              lista de equipos
+              Lista de equipos
             </label>
           </div>
 
           <div class="form-check display-6 mt-2 ">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
             <label class="form-check-label" for="flexCheckDefault">
-              lista de coaches
+              Lista de coaches
             </label>
           </div>
 
           <div class="form-check display-6 mt-2 ">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
             <label class="form-check-label" for="flexCheckDefault">
-              lista de concursos
+              Lista de concursos
             </label>
           </div>
           
@@ -77,10 +77,10 @@
             <div class="offcanvas-body">
               <div>
                 <nav class="nav flex-column nav-underline">
-                  <a class="nav-link "  href="IndexAdmin.html">Usuarios</a>
-                  <a class="nav-link" href="concursos.html">Concursos</a>
+                  <a class="nav-link "  href="IndexAdmin.php">Usuarios</a>
+                  <a class="nav-link" href="concursos.php">Concursos</a>
                   <a class="nav-link active" aria-current="page" href="#">Descargar listas</a>
-                  <a class="btn btn-danger" href="login.html" >Cerrar sesion</a>
+                  <a class="btn btn-danger" href="login.php" >Cerrar sesion</a>
                 </nav>
               </div>
             </div>

@@ -6,9 +6,10 @@
     <title>Inicio sesion</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/estilos.css">    
+    
 </head>
 <body>
-    <div class="">
+    <div>
         <div class="row align-items-stretch">
             <div class="col caja-izquierda p-4">
                 <div class="caja-principal">
@@ -16,7 +17,7 @@
                         <img src="img/logo-coding.png" width="100" alt="">
                     </div>
                     <div class="titulo pt-1">
-                        <label for=""  class="form-label">CodingCup TECNM</label>
+                        CodingCup TECNM
                     </div>
                     <div class="align-self-end">
                         <img src="img/logo-itsur.png" width="100" alt="">
@@ -50,10 +51,10 @@
                         </form>
                     </div>
                     <div class="boton pt-2">
-                        <a href="index.html" type="submit" class="btn btn-iniciar">Iniciar</a>
-                    </div>
+                        <a href="index.php" type="submit" class="btn btn-iniciar">Iniciar</a>
+                     </div>
                     <div class=" caja-tercearia">
-                        <span>No tienes cuenta?<a href="Registro.html">Registrate</a></span>
+                        <span>No tienes cuenta?<a href="Registro.php">Registrate</a></span>
                     </div>
             </div>
             <div class="col caja-derecha d-none d-lg-block col-md-5 col-lg-5 col-xl-6">
@@ -62,21 +63,21 @@
                 </div>
                 <div>
                     <div class="titulo pt-3 px-3 pb-4">
-                        <label for=""  class="form-label">Tecnologíco Nacional de México</label>
+                        <label class="form-label">Tecnológico Nacional de México</label>
                     </div>
                 </div>
                 <div>
                     <div class="pt-2 align-self-start">
-                        <label for=""  class="form-label">Dirección</label><br>
-                        <label for=""  class="form-label">
+                        <label class="form-label">Dirección</label><br>
+                        <label class="form-label">
                             Av. Universidad 1200, Col. Xoco, Ciudad de México, Alcaldía Benito Juárez C.P. 03330
                         </label>
                     </div>
                 </div> 
                 <div>
                     <div class="pt-2 align-self-start">
-                        <label for=""  class="form-label">Contacto</label><br>
-                        <label for=""  class="form-label">
+                        <label class="form-label">Contacto</label><br>
+                        <label class="form-label">
                             Email: contacto@tecnm.mx<br>
                             Telefono: 55 36002500
                         </label>
