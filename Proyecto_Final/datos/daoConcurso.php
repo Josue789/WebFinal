@@ -58,11 +58,11 @@ class DAOConcurso
 			$sentenciaSQL = $this->conexion->prepare("SELECT * FROM Concurso WHERE id_Concurso=?"); 
             $sentenciaSQL->execute([$id_Concurso]);
 			$fila=$sentenciaSQL->fetch(PDO::FETCH_OBJ);
-            $obj = new nombre();
+            $obj = new concurso();
             
             $obj->id_Concurso = $fila->id_Concurso;
-            $obj->fechaInicio = $fila->fechaInicio;
-            $obj->fechaFin = $fila->fechaFin;
+            $obj->fechaInicio =  DateTime::createFromFormat('Y-m-d',$fila->fechaInicio);
+            $obj->fechaFin =  DateTime::createFromFormat('Y-m-d',$fila->fechaFin);
             $obj->nombre = $fila->nombreConcurso;
             $obj->descripcion = $fila->descripcion;
             $obj->estatus = $fila->estatus;
