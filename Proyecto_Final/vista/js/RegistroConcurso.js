@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded",()=>{
+    /*
     document.getElementById("btnGuardar").addEventListener('click',
     (e)=>{
     
@@ -36,5 +37,5 @@ document.addEventListener("DOMContentLoaded",()=>{
         
         location.replace('indexAdmin.html');
     }    
-});
+});*/
 })

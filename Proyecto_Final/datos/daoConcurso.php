@@ -1,9 +1,9 @@
 <?php
 //importa la clase conexión y el modelo para usarlos
 require_once 'conexion.php'; 
-require_once '../modelos/nombre.php'; 
+require_once '../modelos/concurso.php'; 
 
-class DAOnombre
+class DAOConcurso
 {
     
 	private $conexion; 
@@ -25,16 +25,16 @@ class DAOnombre
             $this->conectar();
             
 			$lista = array();
-			$sentenciaSQL = $this->conexion->prepare("SELECT id_Concurso,fechaInicio,fechaFin,nombreConcurso,descripcion,estatus FROM Concurso");
+			$sentenciaSQL = $this->conexion->prepare("SELECT * FROM Concurso");
 			$sentenciaSQL->execute();
             $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
 			foreach($resultado as $fila)
 			{
-				$obj = new nombre();
-                $obj->id_Concurso = $fila->id_Concurso;
+				$obj = new Concurso();
+                $obj->id = $fila->id_Concurso;
                 $obj->fechaInicio = $fila->fechaInicio;
                 $obj->fechaFin = $fila->fechaFin;
-                $obj->nombreConcurso = $fila->nombreConcurso;
+                $obj->nombre = $fila->nombreConcurso;
                 $obj->descripcion = $fila->descripcion;
                 $obj->estatus = $fila->estatus;
                 $lista[] = $obj;
@@ -43,7 +43,7 @@ class DAOnombre
 			return $lista;
 		}
 		catch(PDOException $e){
-			return null;
+			return $e;
 		}finally{
             Conexion::desconectar();
         }
@@ -55,7 +55,7 @@ class DAOnombre
 		{ 
             $this->conectar();
 			$obj = null; 
-			$sentenciaSQL = $this->conexion->prepare("SELECT id_Concurso,fechaInicio,fechaFin,nombreConcurso,descripcion,estatus FROM Concurso WHERE id_Concurso=?"); 
+			$sentenciaSQL = $this->conexion->prepare("SELECT * FROM Concurso WHERE id_Concurso=?"); 
             $sentenciaSQL->execute([$id_Concurso]);
 			$fila=$sentenciaSQL->fetch(PDO::FETCH_OBJ);
             $obj = new nombre();
@@ -63,7 +63,7 @@ class DAOnombre
             $obj->id_Concurso = $fila->id_Concurso;
             $obj->fechaInicio = $fila->fechaInicio;
             $obj->fechaFin = $fila->fechaFin;
-            $obj->nombreConcurso = $fila->nombreConcurso;
+            $obj->nombre = $fila->nombreConcurso;
             $obj->descripcion = $fila->descripcion;
             $obj->estatus = $fila->estatus;
            
@@ -87,7 +87,6 @@ class DAOnombre
 			return $resultado;
 		} catch (PDOException $e) 
 		{
-
 			return false;	
 		}finally{
             Conexion::desconectar();
@@ -97,7 +96,7 @@ class DAOnombre
         
 	}
 
-	public function editar(nombre $obj)
+	public function editar(cooncurso $obj)
 	{
 		try 
 		{
@@ -119,8 +118,8 @@ class DAOnombre
                 $obj->nombreConcurso,
                 $obj->descripcion,
                 $obj->estatus,
-                $obj->id_Concurso;)
-					);
+                $obj->id_Concurso)
+				);
             return true;
 		} catch (PDOException $e){
 			return false;
@@ -129,36 +128,31 @@ class DAOnombre
         }
 	}
 
-    public function agregar(nombre $obj)
+    public function agregar(concurso $obj)
 	{
         $clave=0;
 		try 
 		{
-            $sql = "INSERT INTO Concurso
-                (fechaInicio,
-                fechaFin,
-                nombreConcurso,
-                descripcion,
-                estatus)
+            $sql = "INSERT INTO concurso(fechaInicio,fechaFin,nombreConcurso,descripcion,estatus) 
                 VALUES
                 (:fechaInicio,
                 :fechaFin,
                 :nombreConcurso,
                 :descripcion,
-                :estatus;";
-                
+                :estatus)";
             $this->conectar();
             $this->conexion->prepare($sql)
                  ->execute(array(
-                    ':fechaInicio'=>$obj->fechaInicio,
-                    ':fechaFin'=>$obj->fechaFin,
-                    ':nombreConcurso'=>$obj->nombreConcurso
-                    ':descripcion'=$obj->descripcion,
-                    ':estatus'=$obj->estatus,));
+                    ':fechaInicio'=>$obj->fechaInicio->format('Y-m-d'),
+                    ':fechaFin'=>$obj->fechaFin->format('Y-m-d'),
+                    ':nombreConcurso'=>$obj->nombre,
+                    ':descripcion'=>$obj->descripcion,
+                    ':estatus'=>$obj->estatus));
                  
             $clave=$this->conexion->lastInsertId();
             return $clave;
 		} catch (Exception $e){
+            echo $e;
 			return $clave;
 		}finally{
             Conexion::desconectar();
