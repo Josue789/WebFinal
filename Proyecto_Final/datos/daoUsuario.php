@@ -25,18 +25,21 @@ class DAOUsuario
             $this->conectar();
             
 			$lista = array();
-			$sentenciaSQL = $this->conexion->prepare("SELECT id_Usuario,usuario,contrasenia FROM Usuarios");
+
+			$sentenciaSQL = $this->conexion->prepare("SELECT * FROM Usuario");
 			$sentenciaSQL->execute();
             $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
 			foreach($resultado as $fila)
 			{
 				$obj = new Usuario();
-                $obj->id_Usuario = $fila->id_Usuario;
+                $obj->id = $fila->id_Usuario;
 	            $obj->usuario = $fila->usuario;
+				$obj->institucion = $fila->institucion;
+				$obj->nombre = $fila->nombre;
+				$obj->tipo = $fila->tipo;
                 $obj->contrasenia = $fila->contrasenia;
                 $lista[] = $obj;
 			}
-            
 			return $lista;
 		}
 		catch(PDOException $e){
@@ -76,7 +79,7 @@ class DAOUsuario
 		{
 			$this->conectar();
             
-            $sentenciaSQL = $this->conexion->prepare("DELETE FROM usuarios WHERE id_Usuario = ?");			          
+            $sentenciaSQL = $this->conexion->prepare("DELETE FROM Usuario WHERE id_Usuario = ?");			          
 			$resultado=$sentenciaSQL->execute(array($id_Usuario));
 			return $resultado;
 		} catch (PDOException $e) 
@@ -122,23 +125,29 @@ class DAOUsuario
         $clave=0;
 		try 
 		{
-            $sql = "INSERT INTO Usuario
-                (usuario,
-                contrasenia)
+			$this->conectar();
+            $sql = "INSERT INTO Usuario(nombre,institucion,usuario,contrasenia,tipo)
                 VALUES
-                (:usuario,
-                sha2(:contrasenia,224));";
-                
-            $this->conectar();
+                (:nombre,
+				:institucion,
+				:usuario,
+                sha2(:contrasenia,224),
+				:tipo);";        
             $this->conexion->prepare($sql)
                  ->execute(array(
                     ':usuario'=>$obj->usuario,
+					':nombre'=>$obj->nombre,
+					':tipo'=>$obj->tipo,
+					':institucion'=>$obj->institucion,
                  ':contrasenia'=>$obj->contrasenia));
                  
             $clave=$this->conexion->lastInsertId();
+			
             return $clave;
+
 		} catch (Exception $e){
 			return $clave;
+
 		}finally{
             Conexion::desconectar();
         }

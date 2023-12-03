@@ -3,9 +3,17 @@ CREATE DATABASE codingCup;
 USE codingCup;
 CREATE TABLE Usuario (
     id_Usuario INT PRIMARY KEY AUTO_INCREMENT,
+    nombre varchar(100) NOT NULL,
+    institucion varchar(100) default "ITSUR",
     usuario VARCHAR(100) NOT NULL,
-    contrasenia VARCHAR(16) NOT NULL
+    contrasenia VARCHAR(256) NOT NULL,
+    tipo enum("Admin","Auxiliar","Coach") NOT NULL
 );
+
+insert into Usuario(nombre,institucion,usuario,contrasenia,tipo) values 
+('Jose Perez','ITSUR','AZEAB',sha2('AZEAB',224),1);
+
+select * from Usuario;
 
 CREATE TABLE Coach (
     id_Coach INT PRIMARY KEY AUTO_INCREMENT,

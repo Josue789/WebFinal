@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded",()=>{
+    document.getElementById("btnVolver").addEventListener('click',e=>{
+        location.replace("IndexAdmin.php");
+    });
+    /*
     document.getElementById("btnGuardar").addEventListener('click',
     (e)=>{
     
@@ -15,7 +19,6 @@ document.addEventListener("DOMContentLoaded",()=>{
         .forEach(function (form) {
             
             form.addEventListener('submit', function (event) {
-                console.log("Hello");
             if (!form.checkValidity()) {
                 event.preventDefault()
                 event.stopPropagation()
@@ -34,7 +37,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         //redirección sí funcione
         e.preventDefault();
         
-        location.replace('indexAdmin.html');
+        location.replace('IndexAdmin.php');
     }    
-});
+});*/
 })

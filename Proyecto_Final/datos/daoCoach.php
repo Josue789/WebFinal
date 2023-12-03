@@ -1,7 +1,7 @@
 <?php
 //importa la clase conexión y el modelo para usarlos
 require_once 'conexion.php'; 
-require_once '../modelos/nombre.php'; 
+require_once '../modelos/coach.php'; 
 
 class DAOnombre
 {

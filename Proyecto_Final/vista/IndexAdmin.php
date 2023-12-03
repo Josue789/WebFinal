@@ -10,6 +10,26 @@
 
 </head>
 <body>
+<?php
+
+  // Carga daoUsuario
+  require_once('../datos/daoUsuario.php'); 
+  
+  //Crea una instancia del DAO
+  $dao = new DAOUsuario();
+
+  // Revisa si hay algun id enviado, 
+  //si hay, significa que se esta pidiendo una eliminacion
+  if(ISSET($_POST["id"]) && is_numeric($_POST["id"])){
+    //Eliminar
+    if($dao->eliminar($_POST["id"])){
+      $_SESSION["msj"]="success-El usuario ha sido eliminado correctamente";
+    }else{
+      $_SESSION["msj"]="danger-No se ha podido eliminar el usuario seleccionado";
+    }
+  }
+
+?>
     <header class="">
         <nav class="navbar bg-body-tertiary">
             <div class="container-fluid">
@@ -22,6 +42,19 @@
                 </span></a>
             </div>
           </nav>
+
+          <?php
+        if(ISSET($_SESSION["msj"])){
+          $mensaje=explode("-",$_SESSION["msj"]);
+        ?>
+        <div id="mensajes" class="alert alert-<?=$mensaje[0]?> alert-dismissible fade show">
+            <?=$mensaje[1]?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php
+          UNSET($_SESSION["msj"]);
+        }
+        ?>
     </header>
 
     <div class="container d-flex justify-content-center">
@@ -45,6 +78,35 @@
                 </tr>
               </thead>
               <tbody>
+              <?php
+                //Crea el metodo de obtener todos del dao
+                $listaUsuarios=$dao->obtenerTodos();
+
+                //Verifica que si haya devuelto algo
+                if (ISSET($listaUsuarios)) {
+
+                  //Carga los renglones en base al registro obtenido
+                  foreach ($listaUsuarios as $usuario){
+                    echo "<tr><td>".$usuario->nombre."</td>".
+                             "<td>".$usuario->institucion."</td>".
+                             "<td>".$usuario->tipo."</td>".
+                             "<td><form method='post'>".
+                                "<button formaction='RegistroUsuario.php' class='btn btn-primary' name='id' value='".$usuario->id."'>Editar</button>".
+                                "<button type='button' class='btn btn-danger' onclick='confirmar(this)' name='id' value='".$usuario->id."'>Eliminar</button>".
+                              "</form></td></tr>";
+                  }
+                }else {
+                  // !SI NO ENCUENTRA NADA SOLO MUESTRA NO EN TODOS LOS CAMPOS, ESTO ES SOLO POR PREFERENCIA MIA
+                  // TODO: Cambiar esto por un modal que informe que hay problemas
+                  echo "<tr><td> NO </td>".
+                  "<td> NO </td>".
+                  "<td> NO </td>".
+                  "<td><form method='post'>".
+                     "<button formaction='RegistroUsuario.php' class='btn btn-primary' name='id' value=''>Editar</button>".
+                     "<button type='button' class='btn btn-danger' onclick='confirmar(this)' name='id' value=''>Eliminar</button>".
+                   "</form></td></tr>";
+                }
+              ?>
               </tbody>
           </table>
 
@@ -61,7 +123,6 @@
       </div>   
 
     </div>
-
         <div class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
             <div class="offcanvas-header">
               <h5 class="offcanvas-title" id="staticBackdropLabel">Menu administrador</h5>
@@ -79,8 +140,30 @@
             </div>
           </div>
     </div>
+    
+    <div class="modal" id="mdlConfirmacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title">Confirmar eliminación</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Está a punto de eliminar a <strong id="spnPersona"></strong> 
+               ¿Desea continuar?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            <form method="post">
+              <button class="btn btn-danger" data-bs-dismiss="modal" id="btnConfirmar" name="id">Si, continuar con la eliminación</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/IndexAdmin.js"></script>
 </body>
 </html>
