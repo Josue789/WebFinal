@@ -1,9 +1,10 @@
 <?php
 //importa la clase conexión y el modelo para usarlos
 require_once 'conexion.php'; 
-require_once '../modelos/nombre.php'; 
+require_once '../modelos/equipo.php'; 
+require_once '../modelos/concurso.php'; 
 
-class DAOnombre
+class DAOEquipo
 {
     
 	private $conexion; 
@@ -18,6 +19,34 @@ class DAOnombre
 		}
     }
     
+    public function obtenerConcursos(){
+        try
+		{
+            $this->conectar();
+            
+			$lista = array();
+			$sentenciaSQL = $this->conexion->prepare("SELECT id_Concurso, nombreConcurso from concurso where estatus = true;");
+
+			$sentenciaSQL->execute();
+            $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
+			foreach($resultado as $fila)
+			{
+				$obj = new concurso();
+                $obj->id = $fila->id_Concurso;
+	            $obj->nombre = $fila->nombreConcurso;
+                echo $obj->id;
+                $lista[] = $obj;
+			}
+			return $lista;
+		}
+		catch(PDOException $e){
+            echo $e;
+			return null;
+		}finally{
+            Conexion::desconectar();
+        }
+    }
+
 	public function obtenerTodos()
 	{
 		try
@@ -25,21 +54,21 @@ class DAOnombre
             $this->conectar();
             
 			$lista = array();
-			$sentenciaSQL = $this->conexion->prepare("SELECT id_Equipo,nombreEquipo,estudiante1,estudiante2,estudiante3,foto FROM Equipo");
+			$sentenciaSQL = $this->conexion->prepare("SELECT E.id_Equipo, E.nombreEquipo, H.institucion, C.nombreConcurso, E.estatus  from Equipo E 
+            join Coach h on h.id_Coach like E.coach join concurso c on c.id_Concurso like E.concurso where C.estatus=true;");
+
 			$sentenciaSQL->execute();
             $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
 			foreach($resultado as $fila)
 			{
-				$obj = new nombre();
+				$obj = new equipo();
                 $obj->id_Equipo = $fila->id_Equipo;
 	            $obj->nombreEquipo = $fila->nombreEquipo;
-                $obj->estudiante1 = $fila->estudiante1;
-                $obj->estudiante2 = $fila->estudiante2;
-                $obj->estudiante3 = $fila->estudiante3;
-                $obj->foto = $fila->foto;
+                $obj->institucion = $fila->institucion;
+                $obj->concurso = $fila->nombreConcurso;
+                $obj->estatus = $fila->estatus;
                 $lista[] = $obj;
 			}
-            
 			return $lista;
 		}
 		catch(PDOException $e){
@@ -55,21 +84,22 @@ class DAOnombre
 		{ 
             $this->conectar();
 			$obj = null; 
-			$sentenciaSQL = $this->conexion->prepare("SELECT id_Equipo,nombreEquipo,estudiante1,estudiante2,estudiante3,foto FROM Equipo WHERE id_Equipo=?"); 
+			$sentenciaSQL = $this->conexion->prepare("SELECT id_Equipo,nombreEquipo,estudiante1,estudiante2,estudiante3 FROM Equipo WHERE id_Equipo=?"); 
             $sentenciaSQL->execute([$id_Equipo]);
 			$fila=$sentenciaSQL->fetch(PDO::FETCH_OBJ);
-            $obj = new nombre();
+            $obj = new equipo();
             
-            $obj->id_Equipo = $fila->id_Equipo;
+            $obj->id = $fila->id_Equipo;
 	        $obj->nombreEquipo = $fila->nombreEquipo;
             $obj->estudiante1 = $fila->estudiante1;
             $obj->estudiante2 = $fila->estudiante2;
             $obj->estudiante3 = $fila->estudiante3;
-            $obj->foto = $fila->foto;
            
+            echo $obj->id;
             return $obj;
 		}
 		catch(Exception $e){
+            echo $e;
             return null;
 		}finally{
             Conexion::desconectar();
@@ -97,7 +127,7 @@ class DAOnombre
         
 	}
 
-	public function editar(nombre $obj)
+	public function editar(equipo $obj)
 	{
 		try 
 		{
@@ -107,7 +137,7 @@ class DAOnombre
                     estudiante1 = ?,
                     estudiante2 = ?,
                     estudiante3 = ?,
-                    foto = ?,
+                    concurso = ?
                     WHERE id_Equipo = ?;";
 
             $this->conectar();
@@ -118,8 +148,8 @@ class DAOnombre
                 $obj->estudiante1,
                 $obj->estudiante2,
                 $obj->estudiante3,
-                $obj->foto,
-                $obj->id_Equipo;)
+                $obj->concurso,
+                $obj->id)
 					);
             return true;
 		} catch (PDOException $e){
@@ -129,37 +159,42 @@ class DAOnombre
         }
 	}
 
-    public function agregar(nombre $obj)
+    public function agregar(equipo $obj,int $coach)
 	{
         $clave=0;
 		try 
 		{
-            $sql = "INSERT INTO Equipo
-                (nombreEquipo,
+            $sql = "INSERT into Equipo(nombreEquipo,
                 estudiante1,
                 estudiante2,
                 estudiante3,
-                foto)
-                VALUES
+                concurso,
+                coach,
+                estatus) values
                 (:nombreEquipo,
                 :estudiante1,
                 :estudiante2,
                 :estudiante3,
-                :foto;";
+                :concurso,
+                :coach,
+                :estatus)";
                 
             $this->conectar();
             $this->conexion->prepare($sql)
                  ->execute(array(
                     ':nombreEquipo'=>$obj->nombreEquipo,
                     ':estudiante1'=>$obj->estudiante1,
-                    ':estudiante2'=>$obj->estudiante2
-                    ':estudiante3'=$obj->estudiante3,
-                    ':foto'=$obj->foto,));
+                    ':estudiante2'=>$obj->estudiante2,  
+                    ':estudiante3'=>$obj->estudiante3,
+                    ':concurso'=>$obj->concurso,
+                    ':coach'=>$coach,
+                    ':estatus'=>0));
                  
             $clave=$this->conexion->lastInsertId();
             return $clave;
 		} catch (Exception $e){
-			return $clave;
+            echo $e;
+			return null;
 		}finally{
             Conexion::desconectar();
         }

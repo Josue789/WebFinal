@@ -10,6 +10,27 @@
 
 </head>
 <body>
+  <?php
+    // Obtiene la fecha actual
+    $infoFecha = getdate();
+
+    // Carga daoEquipos
+    require_once('../datos/daoEquipo.php'); 
+    
+    //Crea una instancia del DAO
+    $dao = new daoEquipo();
+
+    // Revisa si hay algun id enviado, 
+    //si hay, significa que se esta pidiendo una eliminacion
+    if(ISSET($_POST["id"]) && is_numeric($_POST["id"])){
+      //Eliminar
+      if($dao->eliminar($_POST["id"])){
+        $_SESSION["msj"]="success-El equipo ha sido eliminado correctamente";
+      }else{
+        $_SESSION["msj"]="danger-No se ha podido eliminar el equipo seleccionado";
+      }
+    }
+  ?>
   <header class="text-bg-danger">
     <nav class="navbar bg-body-tertiary w-100 h-100 text-bg-primary">
       <div class="container-fluid w-100">
@@ -36,6 +57,19 @@
         </div>
       </div>
     </nav>
+    <?php
+          // Muestra cualquier mensaje pendiente en un alert
+          if(ISSET($_SESSION["msj"])){
+            $mensaje=explode("-",$_SESSION["msj"]);
+        ?>
+        <div id="mensajes" class="alert alert-<?=$mensaje[0]?> alert-dismissible fade show">
+          <?=$mensaje[1]?>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php
+          UNSET($_SESSION["msj"]);
+        }
+        ?>
   </header>
   <div class="container-fluid scroller">
     <div class="container overflow-hidden text-center">
@@ -44,7 +78,7 @@
            <div class="p-3 text-start display-5">Coach: </div>
         </div>
         <div class="col">
-          <div class="p-3 display-5">Codign cup 2023</div>
+          <div class="p-3 display-5">Coding cup <?= $infoFecha['year'] ?></div>
         </div>
       </div>
     </div>
@@ -59,6 +93,34 @@
             <th scope="col">Acciones</th>
           </tr>
         </thead>
+        <tbody>
+        <?php
+          //Crea el metodo de obtener todos del dao
+          $listaConcursos=$dao->obtenerTodos();
+            
+          //Verifica que si haya devuelto algo
+          if (ISSET($listaConcursos)) {
+            //Carga los renglones en base al registro obtenido
+            foreach ($listaConcursos as $concurso){         
+              echo  "<tr> <td>$concurso->nombreEquipo</td>
+                          <td>$concurso->institucion</td>
+                          <td>$concurso->concurso</td>
+                          <td>".($concurso->estatus?"<span class='badge text-bg-success'>Aceptado</span>":"<span class='badge text-bg-warning'>En revision</span>")."</td>
+                          <td>
+                          <form method='post'>".
+                            "<button formaction='RegistroEquipo.php' class='btn btn-primary' name='id' value='$concurso->id_Equipo'>Editar</button>".
+                            "<button type='button' class='btn btn-danger' onclick='confirmar(this)' name='id' value='$concurso->id_Equipo'>Eliminar</button>".
+                          "</form>
+                          </td>
+                    </tr>";
+            }
+          }else {
+            // !SI NO ENCUENTRA NADA SOLO MUESTRA UN MENSAJE, ESTO ES SOLO POR PREFERENCIA MIA
+            // TODO: Cambiar esto por un modal que informe que hay problemas
+            echo "<tr>NO HAY DATOS AUN</tr>";
+          }
+        ?>
+        </tbody>
       </table>
       <div class="row justify-content-between">
         <div class="col-6">
@@ -70,6 +132,27 @@
       </div>      
     </div>   
   </div>
+  <div class="modal" id="mdlConfirmacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title">Confirmar eliminación</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Está a punto de eliminar a <strong id="spnPersona"></strong> 
+               ¿Desea continuar?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            <form method="post">
+              <button class="btn btn-danger" data-bs-dismiss="modal" id="btnConfirmar" name="id">Si, continuar con la eliminación</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
   <footer id="sticky-footer" class="flex-shrink-0 py-1 text-white-50 MenuInf">
     <div class="container text-center">
       <div class="row">
@@ -87,5 +170,6 @@
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/index.js"></script>
 </body>
 </html>

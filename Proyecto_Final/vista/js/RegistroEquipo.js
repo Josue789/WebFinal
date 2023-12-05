@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded",()=>{
+    /*
     document.getElementById("btnSiguiente").addEventListener('click',
     (e)=>{
     
@@ -33,8 +34,8 @@ document.addEventListener("DOMContentLoaded",()=>{
         //redirección sí funcione
         e.preventDefault();
         
-        location.replace('RegistroParticipantes.html');
+        location.replace('RegistroParticipantes.php');
     }    
 });
-
+*/
 })
