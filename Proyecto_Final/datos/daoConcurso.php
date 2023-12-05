@@ -60,7 +60,7 @@ class DAOConcurso
 			$fila=$sentenciaSQL->fetch(PDO::FETCH_OBJ);
             $obj = new concurso();
             
-            $obj->id_Concurso = $fila->id_Concurso;
+            $obj->id = $fila->id_Concurso;
             $obj->fechaInicio =  DateTime::createFromFormat('Y-m-d',$fila->fechaInicio);
             $obj->fechaFin =  DateTime::createFromFormat('Y-m-d',$fila->fechaFin);
             $obj->nombre = $fila->nombreConcurso;
@@ -96,7 +96,7 @@ class DAOConcurso
         
 	}
 
-	public function editar(cooncurso $obj)
+	public function editar(concurso $obj)
 	{
 		try 
 		{
@@ -115,10 +115,10 @@ class DAOConcurso
 			$sentenciaSQL->execute(
 				array($obj->fechaInicio,
                 $obj->fechaFin,
-                $obj->nombreConcurso,
+                $obj->nombre,
                 $obj->descripcion,
                 $obj->estatus,
-                $obj->id_Concurso)
+                $obj->id)
 				);
             return true;
 		} catch (PDOException $e){

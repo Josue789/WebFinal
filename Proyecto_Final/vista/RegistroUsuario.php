@@ -9,10 +9,37 @@
 
 </head>
 <body>
-    <?= 
-       require_once('../datos/daoUsuario.php');
-       require_once('../utils/usuarioUtil.php');
+    <?php
+    // Cargar el archivo daoUsuario y cualquier otro archivo necesario
+    require_once('../datos/daoUsuario.php');
+    require_once('../utils/usuarioUtil.php');
+
+    // Crear una instancia del DAO
+    $dao = new DAOUsuario();
+
+    // Inicializar la variable $usuario
+    $usuario = new Usuario(); // Asegúrate de tener una clase Usuario definida con las propiedades necesarias
+    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+        // Obtener el usuario por ID
+        $usuario = $dao->obtenerUno($_GET['id']);
+    
+        // Agregar esta línea para depurar
+        var_dump($usuario);
+    
+        // Verificar si el usuario existe antes de mostrar el formulario
+        if (!$usuario) {
+            // Redirigir o mostrar un mensaje de error, según tus necesidades
+            header("Location: index.php"); // Redirige a la página principal o donde sea necesario
+            exit();
+        }
+    }    
     ?>
+    <!-- Para depuración: -->
+    <pre>ID del usuario: <?= $usuario->id ?></pre>
+    <pre>Nombre del usuario: <?= $usuario->nombre ?></pre>
+    <pre>Usuario: <?= $usuario->usuario ?></pre>
+    <pre>Institucion: <?= $usuario->institucion ?></pre>
+    <pre>Tipo: <?= $usuario->tipo ?></pre>
     <div class="box">
         <?php
             if(ISSET($_SESSION["msj"])){
@@ -35,7 +62,7 @@
 
                     <label class="display-3 mt-4 mb-3">Nuevo usuario </label>
                     <form method="post" class="needs-validation" novalidate>
-                        <input type="text" name="Id" value="<?= $usuario->id ?>">
+                        <input type="text" name="id" value="<?= $usuario->id ?>">
 
                         <div class="input-group mb-3">
                             <span class="input-group-text material-symbols-outlined p-3">
@@ -102,7 +129,7 @@
 
                         <div class="row">
                             <div class="col-6">
-                                <a href="IndexAdmin.php" class=" btn btn-outline-danger" type="button">Cancelar</a> 
+                                <button id="btnVolver" class="btn btn-outline-danger" type="button">Cancelar</button>
                             </div>
                             
                             <div class="col-6">

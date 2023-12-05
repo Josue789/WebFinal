@@ -43,6 +43,7 @@ class DAOUsuario
 			return $lista;
 		}
 		catch(PDOException $e){
+			echo($e);
 			return null;
 		}finally{
             Conexion::desconectar();
@@ -50,28 +51,33 @@ class DAOUsuario
 	}
     
     public function obtenerUno($id_Usuario)
-	{
-		try
-		{ 
-            $this->conectar();
-			$obj = null; 
-			$sentenciaSQL = $this->conexion->prepare("SELECT id_Usuario,usuario,contrasenia FROM Usuarios WHERE id_Usuario=?"); 
-            $sentenciaSQL->execute([$id_Usuario]);
-			$fila=$sentenciaSQL->fetch(PDO::FETCH_OBJ);
+{
+    try
+    {
+        $this->conectar();
+        $obj = null; 
+        $sentenciaSQL = $this->conexion->prepare("SELECT * FROM Usuario WHERE id_Usuario=?"); 
+        $sentenciaSQL->execute([$id_Usuario]);
+        $fila = $sentenciaSQL->fetch(PDO::FETCH_OBJ);
+
+        if ($fila) {
             $obj = new Usuario();
-            
-            $obj->id_Usuario = $fila->id_Usuario;
-	        $obj->usuario = $fila->usuario;
+            $obj->id = $fila->id_Usuario;
+			$obj->nombre = $fila->nombre;
+			$obj->institucion = $fila->institucion;
+            $obj->usuario = $fila->usuario;
             $obj->contrasenia = $fila->contrasenia;
-           
-            return $obj;
-		}
-		catch(Exception $e){
-            return null;
-		}finally{
-            Conexion::desconectar();
+			$obj->tipo = $fila->tipo;
         }
-	}
+
+        return $obj;
+    }
+    catch(Exception $e){
+        return null;
+    } finally {
+        Conexion::desconectar();
+    }
+}
 
 	public function eliminar($id_Usuario)
 	{
@@ -100,17 +106,23 @@ class DAOUsuario
 		{
 			$sql = "UPDATE Usuario
                     SET
+					nombre = ?,
+					institucion = ?,
                     usuario = ?,
-                    contrasenia = sha2(?,224)
+                    contrasenia = sha2(?,224),
+					tipo = ?,
                     WHERE id_Usuario = ?;";
 
             $this->conectar();
             
             $sentenciaSQL = $this->conexion->prepare($sql);
 			$sentenciaSQL->execute(
-				array($obj->usuario,
+				array($obj->nombre,
+					  $obj->institucion,
+					  $obj->usuario,
                       $obj->contrasenia,
-					  $obj->id_Usuario)
+					  $obj->tipo,
+					  $obj->id)
 					);
             return true;
 		} catch (PDOException $e){
