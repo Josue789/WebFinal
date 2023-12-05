@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     document.getElementById("btnVolver").addEventListener('click',e=>{
         location.replace("IndexAdmin.php");
     });
+    
     /*
     document.getElementById("btnGuardar").addEventListener('click',
     (e)=>{

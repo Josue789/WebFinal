@@ -35,7 +35,7 @@
 
         // ? Validacion de contrasenia
         if(ISSET($_POST["Contrasenia"]) && 
-          (strlen(trim($_POST["Contrasenia"]))>8 && strlen(trim($_POST["Contrasenia"]))<51) &&
+          (strlen(trim($_POST["Contrasenia"]))>=8 && strlen(trim($_POST["Contrasenia"]))<51) &&
             preg_match("/^[a-zA-Z0-9]+$/",$_POST["Contrasenia"])){
             $valContrasenia="is-valid";
         }else{

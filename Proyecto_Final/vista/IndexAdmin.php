@@ -87,13 +87,16 @@
 
                   //Carga los renglones en base al registro obtenido
                   foreach ($listaUsuarios as $usuario){
-                    echo "<tr><td>".$usuario->nombre."</td>".
-                             "<td>".$usuario->institucion."</td>".
-                             "<td>".$usuario->tipo."</td>".
-                             "<td><form method='post'>".
-                                "<button formaction='RegistroUsuario.php' class='btn btn-primary' name='id' value='".$usuario->id."'>Editar</button>".
-                                "<button type='button' class='btn btn-danger' onclick='confirmar(this)' name='id' value='".$usuario->id."'>Eliminar</button>".
-                              "</form></td></tr>";
+                    echo "<tr>  <td>$usuario->nombre</td>
+                                <td>$usuario->usuario</td>
+                                <td>$usuario->tipo</td>
+                                <td>
+                                  <form method='post'>".
+                                    "<button formaction='RegistroUsuario.php' class='btn btn-primary' name='id' value='".$usuario->id."'>Editar</button>".
+                                    "<button type='button' class='btn btn-danger' onclick='confirmar(this)' name='id' value='".$usuario->id."'>Eliminar</button>".
+                                  "</form>
+                                </td>
+                          </tr>";
                   }
                 }else {
                   // !SI NO ENCUENTRA NADA SOLO MUESTRA NO EN TODOS LOS CAMPOS, ESTO ES SOLO POR PREFERENCIA MIA

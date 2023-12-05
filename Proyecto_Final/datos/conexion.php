@@ -8,7 +8,7 @@ class Conexion
     private static $servidor = 'localhost' ;
     private static $db = 'codingCup' ;//Agregar nombre de la BD
     private static $usuario = 'root';
-    private static $password = 'toor';
+    private static $password = '1234';
     private static $puerto = '3306';
     
     //Referencia de la conexión a la BD para que 
