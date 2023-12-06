@@ -34,7 +34,7 @@
 
                 <div class="col-6 mt-5">
 
-                    <label class="display-3 mt-4 mb-3">Nuevo Equipo</label>
+                    <h1>Nuevo Equipo</h1>
                     <form method="post" class="needs-validation" novalidate>
                         <input type="text" name="Id" value="<?= $equipo->id ?>" hidden>
                        
@@ -185,7 +185,7 @@
                     </div>
                   </div>
 
-                  <label class="display-6">Participantes anteriores</label>
+                  <h3>Participantes anteriores</h3>
                 </div>
             
             </div>

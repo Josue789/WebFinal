@@ -34,7 +34,7 @@
 
                 <div class="col-6 mt-5">
 
-                    <label class="display-3 mt-4">Nuevo Coach</label>
+                    <h1>Nuevo Coach</h1>
                     <form method="post" class="needs-validation" novalidate>
 
                         <div class="input-group mb-3">
@@ -107,7 +107,7 @@
                 </div>
 
                 <div class="col-3 mt-5">
-                  <label class="display-3 mt-5 mb-4">Bienvenido</label>
+                  <h1>Bienvenido</h1>
 
                   <div id="carouselExampleSlidesOnly" class="carousel slide mb-4" data-bs-ride="carousel">
                     <div class="carousel-inner">
@@ -123,7 +123,7 @@
                     </div>
                   </div>
 
-                  <label class="display-3">Coach</label>
+                  <h1>Coach</h1>
                 </div>
               </div>
 

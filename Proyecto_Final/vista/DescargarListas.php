@@ -28,34 +28,34 @@
       <div class="container-lg ">
        
         <div class="container mb-3">
-          <label class="display-3">Descargar listas</label>
+          <h2>Descargar listas</h2>
           
           <div class="form-check display-6 mt-2 ">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
+            <h3>
               Lista de equipos
-            </label>
+            </h3>
           </div>
 
           <div class="form-check display-6 mt-2 ">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
+            <h3>
               Lista de coaches
-            </label>
+            </h3>
           </div>
 
           <div class="form-check display-6 mt-2 ">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
+            <h3>
               Lista de concursos
-            </label>
+            </h3>
           </div>
           
           <div class="form-check display-6 mt-2 ">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
+            <h3>
               Lista administradores y auxiliares
-            </label>
+            </h3>
           </div>
           
 

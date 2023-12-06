@@ -32,7 +32,7 @@
             <div class="row justify-content-between">
 
                 <div class="col-12 mt-5">
-                    <label class="display-3 mt-4 mb-3">Nuevo concurso </label>
+                    <h1>Nuevo concurso </h1>
                     <form method="post" class="needs-validation" novalidate>
                         <input type="text" name="id" value="<?= $concurso->id ?>">
 
