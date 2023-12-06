@@ -62,7 +62,7 @@ class DAOEquipo
 			foreach($resultado as $fila)
 			{
 				$obj = new equipo();
-                $obj->id_Equipo = $fila->id_Equipo;
+                $obj->id = $fila->id_Equipo;
 	            $obj->nombreEquipo = $fila->nombreEquipo;
                 $obj->institucion = $fila->institucion;
                 $obj->concurso = $fila->nombreConcurso;
@@ -93,7 +93,7 @@ class DAOEquipo
 			foreach($resultado as $fila)
 			{
 				$obj = new equipo();
-                $obj->id_Equipo = $fila->id_Equipo;
+                $obj->id = $fila->id_Equipo;
 	            $obj->nombreEquipo = $fila->nombreEquipo;
                 $obj->institucion = $fila->institucion;
                 $obj->concurso = $fila->nombreConcurso;
@@ -182,6 +182,30 @@ class DAOEquipo
                 $obj->estudiante3,
                 $obj->concurso,
                 $obj->id)
+					);
+            return true;
+		} catch (PDOException $e){
+			return false;
+		}finally{
+            Conexion::desconectar();
+        }
+	}
+
+    public function ChangeEstatus(int $id)
+	{
+		try 
+		{
+			$sql = "UPDATE Equipo
+                    SET
+                    estatus = ?
+                    WHERE id_Equipo = ?;";
+
+            $this->conectar();
+            
+            $sentenciaSQL = $this->conexion->prepare($sql);
+			$sentenciaSQL->execute(
+				array(1,
+                $id)
 					);
             return true;
 		} catch (PDOException $e){

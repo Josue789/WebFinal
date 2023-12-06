@@ -10,7 +10,7 @@
 
     }elseif(count($_POST)>1){
 
-        $valNombre=$valInstitucion=$valTipo=$valUsuario=$valPassword="is-invalid";
+        $valNombre=$valInstitucion=$valUsuario=$valPassword="is-invalid";
         $valido=true;
     //---------------------------------------- Proceso de verificacion de campos ---------------------------------
         // * La recoleccion de los input es usando el name
@@ -34,17 +34,34 @@
         }
 
         // ? Validacion de contrasenia
-        if(ISSET($_POST["Contrasenia"]) && 
-          (strlen(trim($_POST["Contrasenia"]))>=8 && strlen(trim($_POST["Contrasenia"]))<51) &&
-            preg_match("/^[a-zA-Z0-9]+$/",$_POST["Contrasenia"])){
-            $valContrasenia="is-valid";
+        // ! Si la el id es 0 (es un nuevo registro), se hace esta validacion
+        if(ISSET($_POST["id"]) && $_POST["id"]==0){
+            echo "Nuevo";
+            if(ISSET($_POST["Contrasenia"]) && 
+            (strlen(trim($_POST["Contrasenia"]))>=8 && strlen(trim($_POST["Contrasenia"]))<51) &&
+                preg_match("/^[a-zA-Z0-9]+$/",$_POST["Contrasenia"])){
+                $valContrasenia="is-valid";
+            }else{
+                $valido=false;
+            }
         }else{
-            $valido=false;
+            // ! Si es una edicion de un registro, valida si hay algo en la caja de texto o no
+            if (ISSET($_POST["Contrasenia"]) && $_POST["contrasenia"]!="") {
+                // ! Si hay algo, entonces revisamos que cumpla la validacion
+                if( (strlen(trim($_POST["Contrasenia"]))>=8 && strlen(trim($_POST["Contrasenia"]))<51) &&
+                preg_match("/^[a-zA-Z0-9]+$/",$_POST["Contrasenia"])){
+                    $valContrasenia="is-valid";
+                }else{
+                    $valido=false;
+                }
+            }else{
+                $valContrasenia="is-valid";
+            }
         }
 
 
         //Pasa los datos a un object de usuario
-        $usuario->id=ISSET($_POST["Id"])?trim($_POST["Id"]):0;
+        $usuario->id=ISSET($_POST["id"])?trim($_POST["id"]):0;
         $usuario->nombre=ISSET($_POST["Nombre"])?trim($_POST["Nombre"]):"";
         $usuario->usuario=ISSET($_POST["Usuario"])?trim($_POST["Usuario"]):"";
         $usuario->institucion=ISSET($_POST["Institucion"])?trim($_POST["Institucion"]):"";
@@ -64,12 +81,25 @@
                     header("Location: IndexAdmin.php");
                 }
             }else{
-                if($dao->editar($usuario)){
-                    $_SESSION["msj"]="success-El usuario ha sido almacenado exitósamente";
-                    //Al finalizar el guardado redireccionar a la lista
-                    //header("Location: IndexAdmin.php");
+                // ! Antes de mandar la edicion, revisa si se guardo algo en contraseña
+                if(ISSET($usuario->contrasenia)){
+                    // ! Si hay algo mandamos llamar el actualizar normal
+                    if($dao->editar($usuario)){
+                        $_SESSION["msj"]="success-El usuario ha sido almacenado exitósamente";
+                        //Al finalizar el guardado redireccionar a la lista
+                        header("Location: IndexAdmin.php");
+                    }else{
+                        $_SESSION["msj"]="danger-Error al intentar guardar";
+                    }
                 }else{
-                    $_SESSION["msj"]="danger-Error al intentar guardar";
+                    // ! Si no hay, mandamos llamar una actualizacion especial sin contraseña
+                    if($dao->editarSinContrasenia($usuario)){
+                        $_SESSION["msj"]="success-El usuario ha sido almacenado exitósamente";
+                        //Al finalizar el guardado redireccionar a la lista
+                        header("Location: IndexAdmin.php");
+                    }else{
+                        $_SESSION["msj"]="danger-Error al intentar guardar";
+                    }
                 }
             }
         }

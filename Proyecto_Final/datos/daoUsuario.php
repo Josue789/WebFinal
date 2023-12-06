@@ -108,7 +108,7 @@ class DAOUsuario
 					institucion = ?,
                     usuario = ?,
                     contrasenia = sha2(?,224),
-					tipo = ?,
+					tipo = ?
                     WHERE id_Usuario = ?;";
 
             $this->conectar();
@@ -124,6 +124,38 @@ class DAOUsuario
 					);
             return true;
 		} catch (PDOException $e){
+			echo $e;
+			return false;
+		}finally{
+            Conexion::desconectar();
+        }
+	}
+
+	public function editarSinContrasenia(Usuario $obj)
+	{
+		try 
+		{
+			$sql = "UPDATE Usuario
+                    SET
+					nombre = ?,
+					institucion = ?,
+                    usuario = ?,
+					tipo = ?
+                    WHERE id_Usuario = ?;";
+
+            $this->conectar();
+            
+            $sentenciaSQL = $this->conexion->prepare($sql);
+			$sentenciaSQL->execute(
+				array($obj->nombre,
+					  $obj->institucion,
+					  $obj->usuario,
+					  $obj->tipo,
+					  $obj->id)
+					);
+            return true;
+		} catch (PDOException $e){
+			echo $e;
 			return false;
 		}finally{
             Conexion::desconectar();

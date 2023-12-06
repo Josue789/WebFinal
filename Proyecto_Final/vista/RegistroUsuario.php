@@ -69,7 +69,7 @@
                                 lock
                             </span>
                             <div class="form-floating">
-                                <input type="text" class="form-control <?=$valPassword?>" name="Contrasenia" id="floatingInput" value="<?= $usuario->contrasenia ?>" required>
+                                <input type="text" class="form-control <?=$valPassword?>" name="Contrasenia" id="floatingInput" required>
                                 <label for="floatingInput">Contraseña</label>
                                 <div class="invalid-tooltip">
                                 Campo obligatorio

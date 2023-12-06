@@ -108,8 +108,8 @@
                           <td>".($concurso->estatus?"<span class='badge text-bg-success'>Aceptado</span>":"<span class='badge text-bg-warning'>En revision</span>")."</td>
                           <td>
                           <form method='post'>".
-                            "<button formaction='RegistroEquipo.php' class='btn btn-primary' name='id' value='$concurso->id_Equipo'>Editar</button>".
-                            "<button type='button' class='btn btn-danger' onclick='confirmar(this)' name='id' value='$concurso->id_Equipo'>Eliminar</button>".
+                            "<button formaction='RegistroEquipo.php' class='btn btn-primary' name='id' value='$concurso->id'>Editar</button>".
+                            "<button type='button' class='btn btn-danger' onclick='confirmar(this)' name='id' value='$concurso->id'>Eliminar</button>".
                           "</form>
                           </td>
                     </tr>";

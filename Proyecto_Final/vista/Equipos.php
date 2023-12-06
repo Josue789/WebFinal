@@ -16,13 +16,14 @@
   require_once('../utils/EquiposUtil.php'); 
 
   // Revisa si hay algun id enviado, 
-  //si hay, significa que se esta pidiendo una eliminacion
-  if(ISSET($_POST["id"]) && is_numeric($_POST["id"])){
-    //Eliminar
-    if($dao->eliminar($_POST["id"])){
-      $_SESSION["msj"]="success-El concurso ha sido eliminado correctamente";
+  //si hay, significa que se esta pidiendo una actualizacion
+  if(ISSET($_POST["idEquipo"]) && is_numeric($_POST["idEquipo"]) && $_POST["idEquipo"]>0){
+    $dao = new daoEquipo();
+    //Cambiar
+    if($dao->ChangeEstatus($_POST["idEquipo"])){
+      header("Location: Equipos.php");
     }else{
-      $_SESSION["msj"]="danger-No se ha podido eliminar el concurso seleccionado";
+      $_SESSION["msj"]="danger-No se ha podido validar el equipo seleccionado";
     }
   }
 ?>
@@ -74,7 +75,7 @@
                                 <td>$equipo->coach</td>
                                 <td>".
                                 ($equipo->estatus?"<p class='fw-bold'>EQUIPO VALIDADO</p>":"<form method='post'>".
-                                "<button type='button' class='btn btn-outline-success' onclick='confirmar(this)' name='id' value='".$equipo->id."'>Validar</button>".
+                                "<button type='button' class='btn btn-outline-success' onclick='confirmar(this)' name='idEquipo' value='".$equipo->id."'>Validar</button>".
                               "</form>")
                                 ."</td>
                           </tr>";
@@ -110,7 +111,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
             <form method="post">
-              <button class="btn btn-success" data-bs-dismiss="modal" id="btnConfirmar" name="id">Validar</button>
+              <button class="btn btn-success" data-bs-dismiss="modal" id="btnConfirmar" name="idEquipo">Validar</button>
             </form>
           </div>
         </div>
