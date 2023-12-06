@@ -4,6 +4,7 @@
         public $nombreEquipo="";
         public $institucion="";
         public $concurso="";
+        public $coach="";
         public $estatus=false;
         public $estudiante1="";
         public $estudiante2="";

@@ -12,10 +12,8 @@
 <body>
 <?php
   // Carga daoConcurso
-  require_once('../datos/daoConcurso.php'); 
-  
-  //Crea una instancia del DAO
-  $dao = new DAOConcurso();
+  require_once('../datos/daoEquipo.php'); 
+  require_once('../utils/EquiposUtil.php'); 
 
   // Revisa si hay algun id enviado, 
   //si hay, significa que se esta pidiendo una eliminacion
@@ -41,27 +39,13 @@
             </span></a>
         </div>
       </nav>
-
-      <?php
-          // Muestra cualquier mensaje pendiente en un alert
-          if(ISSET($_SESSION["msj"])){
-            $mensaje=explode("-",$_SESSION["msj"]);
-        ?>
-        <div id="mensajes" class="alert alert-<?=$mensaje[0]?> alert-dismissible fade show">
-          <?=$mensaje[1]?>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <?php
-          UNSET($_SESSION["msj"]);
-        }
-        ?>
   </header>
 
     <div class="container d-flex justify-content-center">
       <div class="container-lg ">
        
         <div class="container mb-3">
-          <label class="display-3">Concursos</label>
+          <label class="display-3">Equipos registrados</label>
           <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
             <button class="btn btn-outline-secondary" type="button" id="button-addon2"><span class="material-symbols-outlined">
@@ -71,34 +55,28 @@
           <table class="table table-info">
               <thead>
                 <tr>
-                  <th scope="col">Concurso</th>
-                  <th scope="col">Categoria</th>
-                  <th scope="col">Fecha concurso</th>
-                  <th scope="col">Fecha Inscripcion</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Institucion</th>
+                  <th scope="col">Coach</th>
                   <th scope="col">Acciones</th>
                 </tr>
               </thead>
               <tbody>
               <?php
-                //Crea el metodo de obtener todos del dao
-                $listaConcursos=$dao->obtenerTodos();
                   
                 //Verifica que si haya devuelto algo
-                if (ISSET($listaConcursos)) {
+                if (ISSET($listaEquipos)) {
                   //Carga los renglones en base al registro obtenido
-                  foreach ($listaConcursos as $concurso){
+                  foreach ($listaEquipos as $equipo){
                     
-                    echo  "<tr> <td>$concurso->nombre</td>
-                                <td>$concurso->descripcion</td>
-                                <td>$concurso->fechaInicio</td>
-                                <td>$concurso->fechaFin</td>
-                                <td>
-                                <form method='post'>".
-                                  "<button formaction='Equipos.php' class='btn btn-warning m-1' name='id' value='".$concurso->id."'>ver equipos</button>".
-                                  "<button formaction='RegistroConcurso.php' class='btn btn-primary m-1' name='id' value='".$concurso->id."'>Editar</button>".
-                                  "<button type='button' class='btn btn-danger' onclick='confirmar(this)' name='id' value='".$concurso->id."'>Eliminar</button>".
-                                "</form>
-                                </td>
+                    echo  "<tr> <td>$equipo->nombreEquipo</td>
+                                <td>$equipo->institucion</td>
+                                <td>$equipo->coach</td>
+                                <td>".
+                                ($equipo->estatus?"<p class='fw-bold'>EQUIPO VALIDADO</p>":"<form method='post'>".
+                                "<button type='button' class='btn btn-outline-success' onclick='confirmar(this)' name='id' value='".$equipo->id."'>Validar</button>".
+                              "</form>")
+                                ."</td>
                           </tr>";
                   }
                 }else {
@@ -112,31 +90,27 @@
 
           <div class="row justify-content-between">
               <div class="col-6">
-                  <a href="login.php" class=" btn btn-outline-danger" type="button">Cerrar sesión</a> 
+                  <a href="concursos.php" class=" btn btn-outline-danger" type="button">Regresar</a> 
               </div>
-              
-              <div class="col-2  ">
-                  <a class=" btn btn-success" type="submit" href="RegistroConcurso.php">Nuevo concurso</a>
-              </div>
-              
           </div>      
       </div>  
       
       <div class="modal" id="mdlConfirmacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title">Confirmar eliminación</h5>
+          <div class="modal-header bg-info text-white">
+            <h5 class="modal-title">Confirmar validación</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <p>Está a punto de eliminar a <strong id="spnPersona"></strong> 
+            <p>Está a punto de validar al equipo <strong id="spnPersona"></strong> 
+              y estará aceptado para participar
                ¿Desea continuar?</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
             <form method="post">
-              <button class="btn btn-danger" data-bs-dismiss="modal" id="btnConfirmar" name="id">Si, continuar con la eliminación</button>
+              <button class="btn btn-success" data-bs-dismiss="modal" id="btnConfirmar" name="id">Validar</button>
             </form>
           </div>
         </div>

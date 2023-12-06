@@ -106,15 +106,15 @@ class DAOConcurso
                     fechaFin = ?,
                     nombreConcurso = ?,
                     descripcion = ?,
-                    estatus = ?,
+                    estatus = ?
                     WHERE id_Concurso = ?;";
 
             $this->conectar();
             
             $sentenciaSQL = $this->conexion->prepare($sql);
 			$sentenciaSQL->execute(
-				array($obj->fechaInicio,
-                $obj->fechaFin,
+				array($obj->fechaInicio->format('Y-m-d'),
+                $obj->fechaFin->format('Y-m-d'),
                 $obj->nombre,
                 $obj->descripcion,
                 $obj->estatus,
@@ -122,6 +122,7 @@ class DAOConcurso
 				);
             return true;
 		} catch (PDOException $e){
+            echo $e;
 			return false;
 		}finally{
             Conexion::desconectar();

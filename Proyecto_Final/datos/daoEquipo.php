@@ -55,7 +55,7 @@ class DAOEquipo
             
 			$lista = array();
 			$sentenciaSQL = $this->conexion->prepare("SELECT E.id_Equipo, E.nombreEquipo, H.institucion, C.nombreConcurso, E.estatus  from Equipo E 
-            join Coach h on h.id_Coach like E.coach join concurso c on c.id_Concurso like E.concurso where C.estatus=true;");
+            join Usuario h on h.id_Usuario like E.coach join concurso c on c.id_Concurso like E.concurso where C.estatus=true;");
 
 			$sentenciaSQL->execute();
             $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
@@ -66,6 +66,38 @@ class DAOEquipo
 	            $obj->nombreEquipo = $fila->nombreEquipo;
                 $obj->institucion = $fila->institucion;
                 $obj->concurso = $fila->nombreConcurso;
+                $obj->estatus = $fila->estatus;
+                $lista[] = $obj;
+			}
+			return $lista;
+		}
+		catch(PDOException $e){
+			return null;
+		}finally{
+            Conexion::desconectar();
+        }
+	}
+
+    public function obtenerTodosPorConcurso(Int $id_Concurso)
+	{
+		try
+		{
+            $this->conectar();
+            
+			$lista = array();
+			$sentenciaSQL = $this->conexion->prepare("SELECT E.id_Equipo, E.nombreEquipo, H.institucion, C.nombreConcurso, H.nombre ,E.estatus  from Equipo E 
+            join usuario h on h.id_Usuario like E.coach join concurso c on c.id_Concurso like E.concurso where C.id_Concurso=?;");
+
+            $sentenciaSQL->execute([$id_Concurso]);
+            $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
+			foreach($resultado as $fila)
+			{
+				$obj = new equipo();
+                $obj->id_Equipo = $fila->id_Equipo;
+	            $obj->nombreEquipo = $fila->nombreEquipo;
+                $obj->institucion = $fila->institucion;
+                $obj->concurso = $fila->nombreConcurso;
+                $obj->coach = $fila->nombre;
                 $obj->estatus = $fila->estatus;
                 $lista[] = $obj;
 			}

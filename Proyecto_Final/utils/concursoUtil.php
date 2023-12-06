@@ -50,7 +50,7 @@
 
 
         //Pasa los datos a un object de concurso
-        $concurso->id=ISSET($_POST["Id"])?trim($_POST["Id"]):0;
+        $concurso->id=ISSET($_POST["id"])?trim($_POST["id"]):0;
         $concurso->nombre=ISSET($_POST["Nombre"])?trim($_POST["Nombre"]):"";
         $concurso->fechaInicio=ISSET($_POST["FechaConcurso"])?DateTime::createFromFormat('Y-m-d', $_POST["FechaConcurso"]):new DateTime();
         $concurso->fechaFin=ISSET($_POST["FechaInscripcion"])?DateTime::createFromFormat('Y-m-d', $_POST["FechaInscripcion"]):new DateTime();

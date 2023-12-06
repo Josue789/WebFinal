@@ -99,6 +99,9 @@
                                 </span>
                                 <input name="file" type="file" class="form-control " id="inputGroupFile01">
                             </div>
+                            <div class="invalid-tooltip">
+                                Campo obligatorio
+                            </div>
                         </div>
                             </div>
                         </div>
@@ -157,7 +160,7 @@
                             </div>
                             
                             <div class="col-6">
-                                <button id="btnGuardar" class="btn btn-primary" formaction="RegistroEquipo.php">Siguiente</button>
+                                <button id="btnGuardar" class="btn btn-primary" formaction="RegistroEquipo.php">Registrar</button>
                             </div>
                         </div>
                     </form>

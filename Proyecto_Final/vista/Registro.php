@@ -10,7 +10,21 @@
 
 </head>
 <body>
+    <?= 
+       require_once('../datos/daoUsuario.php');
+       require_once('../utils/RegistroUtil.php');
+    ?>
     <div class="box">
+         <?php
+            if(ISSET($_SESSION["msj"])){
+            $mensaje=explode("-",$_SESSION["msj"]);
+            ?>
+            <div id="mensajes" class="alert alert-<?=$mensaje[0]?>">
+                <?=$mensaje[1]?>
+            </div>
+        <?php
+        UNSET($_SESSION["msj"]);}
+        ?>
         <div class="container text-center">
             <div class="position-absolute top-0 start-0">
                 <img src="img/CCUP.png" class="img-fluid" width="100" height="100" alt="" >
@@ -21,16 +35,20 @@
                 <div class="col-6 mt-5">
 
                     <label class="display-3 mt-4">Nuevo Coach</label>
-                    <form action="">
+                    <form method="post" class="needs-validation" novalidate>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text material-symbols-outlined p-3">
                                 person
                             </span>
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="Juan Pérez ">
+                                <input name="Nombre" type="text" class="form-control <?=$valNombre?>" id="floatingInput">
                                 <label for="floatingInput">Nombre</label>
+                                <div class="invalid-tooltip">
+                                    Campo obligatorio
+                                </div>
                             </div>
+                            
                         </div>
 
                         <div class="input-group mb-3">
@@ -38,18 +56,29 @@
                                 mail
                             </span>
                             <div class="form-floating">
-                                <input type="mail" class="form-control" id="floatingInput" placeholder="ejemplo@dominio.com ">
+                                <input name="Correo" type="mail" class="form-control <?=$valNombre?>" id="floatingInput">
                                 <label for="floatingInput">Correo</label>
+                                <div class="invalid-tooltip">
+                                    Campo obligatorio
+                                    <ul>
+                                        <li>Debe tener mas de 8 caracteres</li>
+                                        <li>Puede contener letras mayusculas, minusculas y numeros</li>
+                                        <li>No debe llevar caracteres especiales</li>
+                                    </ul> 
+                                </div>
                             </div>
                         </div>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text material-symbols-outlined p-3">
-                                mail
+                                lock
                             </span>
                             <div class="form-floating">
-                                <input type="mail" class="form-control" id="floatingInput" placeholder="ejemplo@dominio.com ">
-                                <label for="floatingInput">Confirmar Correo</label>
+                                <input name="Contrasenia" type="text" class="form-control <?=$valNombre?>" id="floatingInput" >
+                                <label for="floatingInput">Contraseña</label>
+                                <div class="invalid-tooltip">
+                                    Campo obligatorio
+                                </div>
                             </div>
                         </div>
                         
@@ -57,11 +86,10 @@
                             <span class="input-group-text material-symbols-outlined p-3">
                                 school
                             </span>
-                            <select class="form-select form-select-lg" aria-label="Large select example">
-                                <option selected>Institucion</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <select name="Institucion" class="form-select form-select-lg" aria-label="Large select example">
+                                <option value="ITSUR">Tecnologico Superior del sur de Guanajuato</option>
+                                <option value="UG">Universidad de Guanajuato</option>
+                                <option value="CBTIs 217">Centro de Bachillerato Tecnologico Industrial y Servicios 217</option>
                               </select>
                         </div>
                         
@@ -71,7 +99,7 @@
                             </div>
                             
                             <div class="col-6">
-                                <button class=" btn btn-primary" type="submit">Registrar</button>
+                                <button class=" btn btn-primary" formaction="Registro.php">Registrar</button>
                             </div>
                         </div>
                     </form>
