@@ -13,33 +13,7 @@
     // Cargar el archivo daoUsuario y cualquier otro archivo necesario
     require_once('../datos/daoUsuario.php');
     require_once('../utils/usuarioUtil.php');
-
-    // Crear una instancia del DAO
-    $dao = new DAOUsuario();
-
-    // Inicializar la variable $usuario
-    $usuario = new Usuario(); // Asegúrate de tener una clase Usuario definida con las propiedades necesarias
-    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-        // Obtener el usuario por ID
-        $usuario = $dao->obtenerUno($_GET['id']);
-    
-        // Agregar esta línea para depurar
-        var_dump($usuario);
-    
-        // Verificar si el usuario existe antes de mostrar el formulario
-        if (!$usuario) {
-            // Redirigir o mostrar un mensaje de error, según tus necesidades
-            header("Location: index.php"); // Redirige a la página principal o donde sea necesario
-            exit();
-        }
-    }    
     ?>
-    <!-- Para depuración: -->
-    <pre>ID del usuario: <?= $usuario->id ?></pre>
-    <pre>Nombre del usuario: <?= $usuario->nombre ?></pre>
-    <pre>Usuario: <?= $usuario->usuario ?></pre>
-    <pre>Institucion: <?= $usuario->institucion ?></pre>
-    <pre>Tipo: <?= $usuario->tipo ?></pre>
     <div class="box">
         <?php
             if(ISSET($_SESSION["msj"])){
