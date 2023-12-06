@@ -25,7 +25,6 @@ class DAOUsuario
             $this->conectar();
             
 			$lista = array();
-
 			$sentenciaSQL = $this->conexion->prepare("SELECT * FROM Usuario");
 			$sentenciaSQL->execute();
             $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
@@ -60,7 +59,6 @@ class DAOUsuario
         $sentenciaSQL->execute([$id_Usuario]);
         $fila = $sentenciaSQL->fetch(PDO::FETCH_OBJ);
 
-        if ($fila) {
             $obj = new Usuario();
             $obj->id = $fila->id_Usuario;
 			$obj->nombre = $fila->nombre;
@@ -68,7 +66,7 @@ class DAOUsuario
             $obj->usuario = $fila->usuario;
             $obj->contrasenia = $fila->contrasenia;
 			$obj->tipo = $fila->tipo;
-        }
+        
 
         return $obj;
     }

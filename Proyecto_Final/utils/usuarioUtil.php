@@ -47,9 +47,9 @@
         $usuario->id=ISSET($_POST["Id"])?trim($_POST["Id"]):0;
         $usuario->nombre=ISSET($_POST["Nombre"])?trim($_POST["Nombre"]):"";
         $usuario->usuario=ISSET($_POST["Usuario"])?trim($_POST["Usuario"]):"";
-        $usuario->institucion="ITSUR";
+        $usuario->institucion=ISSET($_POST["Institucion"])?trim($_POST["Institucion"]):"";
         $usuario->contrasenia=ISSET($_POST["Contrasenia"])?trim($_POST["Contrasenia"]):"";
-        $usuario->tipo=ISSET($_POST["Tipo"])?trim($_POST["Tipo"]):"Coach";
+        $usuario->tipo=ISSET($_POST["Tipo"])?trim($_POST["Tipo"]):"";
 
         if ($valido) {
             //Usar el método agregar del dao
