@@ -9,6 +9,19 @@
     
 </head>
 <body>
+    <?php
+        require_once('../utils/loginUtil.php');
+
+        if(ISSET($_SESSION["msj"])){
+            $mensaje=explode("-",$_SESSION["msj"]);
+    ?>
+            <div id="mensajes" class="alert alert-<?=$mensaje[0]?> alert-dismissible fade show">
+                <?=$mensaje[1]?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+    <?php
+            UNSET($_SESSION["msj"]);}
+    ?>
     <div>
         <div class="row align-items-stretch">
             <div class="col caja-izquierda p-4">
@@ -26,14 +39,14 @@
                 <h2 class="fw-bold text-center">Bienvenido</h2>
                 <!--LOGIN-->
                     <div>
-                        <form action="#">
+                        <form method="POST">
                             <div class="formulario w-75">
                                 <div class="caja-principal">
                                     <div class="imagen">
                                          <img src="img/icon-usuario.png" alt="">
                                     </div>
                                     <div class="caja-texto">
-                                         <input type="email" class="form-control" placeholder="Correo">
+                                         <input name="Usuario" type="text" class="form-control" placeholder="Correo/Usuario">
                                     </div>
                                  </div>
                                  <div class="caja-principal">
@@ -41,18 +54,19 @@
                                           <img src="img/icon-contra.png" alt="">
                                      </div>
                                      <div class="caja-texto">
-                                          <input type="email" class="form-control" placeholder="Contraseña">
+                                          <input name="Contrasenia" type="password" class="form-control" placeholder="Contraseña">
                                      </div>
                                  </div>
                                  <div class="caja-secundaria ">
                                      <span><a href="#">Olvide mi contraseña</a></span>
                                  </div>
                             </div>
+                            </div>
+                         <div class="boton pt-2">
+                            <button  formaction="login.php" class="btn btn-iniciar">Iniciar</button>
+                        </div>
                         </form>
-                    </div>
-                    <div class="boton pt-2">
-                        <a href="index.php" type="submit" class="btn btn-iniciar">Iniciar</a>
-                     </div>
+                 
                     <div class=" caja-tercearia">
                         <span>No tienes cuenta?<a href="Registro.php">Registrate</a></span>
                     </div>

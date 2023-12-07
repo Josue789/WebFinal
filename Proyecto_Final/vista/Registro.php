@@ -18,12 +18,12 @@
          <?php
             if(ISSET($_SESSION["msj"])){
             $mensaje=explode("-",$_SESSION["msj"]);
-            ?>
+        ?>
             <div id="mensajes" class="alert alert-<?=$mensaje[0]?>">
                 <?=$mensaje[1]?>
             </div>
         <?php
-        UNSET($_SESSION["msj"]);}
+            UNSET($_SESSION["msj"]);}
         ?>
         <div class="container text-center">
             <div class="position-absolute top-0 start-0">

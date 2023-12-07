@@ -10,6 +10,13 @@
 </head>
 <body>
     <?php
+    //Revisa si hay alguien logueado
+    session_start();
+    if(!ISSET($_SESSION["usuario"]) || $_SESSION["tipo"]=="Coach"){
+        header("Location:login.php");
+    }
+
+
     // Cargar el archivo daoUsuario y cualquier otro archivo necesario
     require_once('../datos/daoUsuario.php');
     require_once('../utils/usuarioUtil.php');
@@ -36,7 +43,7 @@
 
                     <label class="display-3 mt-4 mb-3">Nuevo usuario </label>
                     <form method="post" class="needs-validation" novalidate>
-                        <input type="text" name="id" value="<?= $usuario->id ?>">
+                        <input hidden type="text" name="id" value="<?= $usuario->id ?>">
 
                         <div class="input-group mb-3">
                             <span class="input-group-text material-symbols-outlined p-3">

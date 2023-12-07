@@ -55,9 +55,9 @@ class DAOEquipo
             
 			$lista = array();
 			$sentenciaSQL = $this->conexion->prepare("SELECT E.id_Equipo, E.nombreEquipo, H.institucion, C.nombreConcurso, E.estatus  from Equipo E 
-            join Usuario h on h.id_Usuario like E.coach join concurso c on c.id_Concurso like E.concurso where C.estatus=true;");
+            join Usuario h on h.id_Usuario like E.coach join concurso c on c.id_Concurso like E.concurso where C.estatus=true and h.id_Usuario like ?;");
 
-			$sentenciaSQL->execute();
+			$sentenciaSQL->execute([$_SESSION["usuario"]]);
             $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
 			foreach($resultado as $fila)
 			{

@@ -10,6 +10,12 @@
 </head>
 <body>
     <?= 
+        //Revisa si hay alguien logueado
+        session_start();
+        if(!ISSET($_SESSION["usuario"]) || $_SESSION["tipo"]=="Coach"){
+            header("Location:login.php");
+        }
+
        require_once('../datos/daoConcurso.php');
        require_once('../utils/concursoUtil.php');
     ?>
@@ -34,7 +40,7 @@
                 <div class="col-12 mt-5">
                     <label class="display-3 mt-4 mb-3">Nuevo concurso </label>
                     <form method="post" class="needs-validation" novalidate>
-                        <input type="text" name="id" value="<?= $concurso->id ?>">
+                        <input hidden type="text" name="id" value="<?= $concurso->id ?>">
 
 
                         <div class="input-group mb-3">
@@ -96,7 +102,7 @@
                         
                         <div class="row mb-3">
                             <input name="Estatus" type="checkbox" class="btn-check" id="btn-check-2-outlined" autocomplete="off" <?= $concurso->estatus?"checked":"" ?>>
-                            <label class="btn btn-outline-secondary" for="btn-check-2-outlined">Concurso activo</label><br>
+                            <label class="btn btn-outline-secondary" for="btn-check-2-outlined" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Concurso activo</label><br>
                         </div>
 
 
@@ -121,7 +127,26 @@
         </div>
 
     </div>
-
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header bg-warning text-black">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">CUIDADO</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Si cambias el estatus del concurso, recuerda lo siguiente:
+                <ul>
+                    <li>Si el concurso se cambia a activo, todos los otros concursos seran inactivados</li>
+                    <li>Si el concurso se cambia a inactivo, todos los otros concursos se quedaran inactivos tambien</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Entendido</button>
+            </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="js/bootstrap.bundle.min.js"></script>

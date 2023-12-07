@@ -51,12 +51,13 @@
         }else{
             $valido=false;
         }
+        
 
 
         //Pasa los datos a un object de concurso
         $equipo->id=ISSET($_POST["Id"])?trim($_POST["Id"]):0;
         $equipo->nombreEquipo=ISSET($_POST["nombre"])?trim($_POST["nombre"]):"";
-        $equipo->institucion="ITSUR";
+        $equipo->institucion=ISSET($_SESSION["institucion"])?ISSET($_SESSION["institucion"]):"UNKNOWN";
         $equipo->concurso=ISSET($_POST["concurso"])?trim($_POST["concurso"]):"";
         $equipo->estudiante1=ISSET($_POST["participante1"])?trim($_POST["participante1"]):"";
         $equipo->estudiante2=ISSET($_POST["participante2"])?trim($_POST["participante2"]):"";
@@ -65,9 +66,10 @@
         if ($valido) {
             //Usar el método agregar del dao
             $dao= new DAOEquipo();
-            
             if($equipo->id==0){
-                if($dao->agregar($equipo,1)==0){
+                $coach= $_SESSION["usuario"];
+
+                if($dao->agregar($equipo,$coach)==0){
                     $_SESSION["msj"]="danger-Error al intentar guardar";
                 }else{
                     $_SESSION["msj"]="success-El usuario ha sido almacenado exitósamente";

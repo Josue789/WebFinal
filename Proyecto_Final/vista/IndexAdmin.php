@@ -11,6 +11,12 @@
 </head>
 <body>
 <?php
+  //Revisa si hay alguien logueado
+  session_start();
+  if(!ISSET($_SESSION["usuario"]) || $_SESSION["tipo"]=="Coach"){
+    header("Location:login.php");
+  }
+
 
   // Carga daoUsuario
   require_once('../datos/daoUsuario.php'); 
@@ -109,7 +115,7 @@
 
           <div class="row justify-content-between">
               <div class="col-6">
-                  <a href="login.php" class=" btn btn-outline-danger" type="button">Cerrar sesión</a> 
+                  <a href="../utils/cerrarSesion.php"  class=" btn btn-outline-danger" type="button">Cerrar sesión</a> 
               </div>
               
               <div class="col-2  ">
@@ -130,8 +136,8 @@
                 <nav class="nav flex-column nav-underline">
                   <a class="nav-link active" aria-current="page" href="#">Usuarios</a>
                   <a class="nav-link" href="concursos.php">Concursos</a>
-                  <a class="nav-link" href="DescargaListas.php">Descargar listas</a>
-                  <a class="btn btn-danger" href="login.php" >Cerrar sesion</a>
+                  <a class="nav-link" href="DescargarListas.php">Descargar listas</a>
+                  <a class="btn btn-danger" href="../utils/cerrarSesion.php" >Cerrar sesion</a>
                 </nav>
               </div>
             </div>

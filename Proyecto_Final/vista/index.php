@@ -11,6 +11,13 @@
 </head>
 <body>
   <?php
+
+    //Revisa si hay alguien logueado
+    session_start();
+      if(!ISSET($_SESSION["usuario"]) || $_SESSION["tipo"]!="Coach"){
+        header("Location:login.php");
+      }
+
     // Obtiene la fecha actual
     $infoFecha = getdate();
 
@@ -75,7 +82,7 @@
     <div class="container overflow-hidden text-center">
       <div class="row gx-5">
         <div class="col">
-           <div class="p-3 text-start display-5">Coach: </div>
+           <div class="p-3 text-start display-5">Coach: <?= $_SESSION["nombre"]?> </div>
         </div>
         <div class="col">
           <div class="p-3 display-5">Coding cup <?= $infoFecha['year'] ?></div>
@@ -124,7 +131,7 @@
       </table>
       <div class="row justify-content-between">
         <div class="col-6">
-          <a href="login.php" class=" btn btn-outline-danger" type="button">Cerrar sesión</a> 
+          <a href="../utils/cerrarSesion.php"  class=" btn btn-outline-danger" type="button">Cerrar sesión</a> 
         </div>
         <div class="col-2  ">
           <a class=" btn btn-primary" type="submit" href="./RegistroEquipo.php">Nuevo equipo</a>

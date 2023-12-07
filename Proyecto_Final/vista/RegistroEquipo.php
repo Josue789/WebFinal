@@ -11,6 +11,12 @@
 </head>
 <body>
     <?= 
+        //Revisa si hay alguien logueado
+        session_start();
+        if(!ISSET($_SESSION["usuario"]) || $_SESSION["tipo"]!="Coach"){
+            header("Location:login.php");
+        }
+
        require_once('../datos/daoEquipo.php');
        require_once('../utils/equipoUtil.php');
     ?>
@@ -34,7 +40,7 @@
 
                 <div class="col-6 mt-5">
 
-                    <label class="display-3 mt-4 mb-3">Nuevo Equipo</label>
+                    <p class="display-3 mt-4 mb-3">Nuevo Equipo</p>
                     <form method="post" class="needs-validation" novalidate>
                         <input type="text" name="Id" value="<?= $equipo->id ?>" hidden>
                        
@@ -185,7 +191,7 @@
                     </div>
                   </div>
 
-                  <label class="display-6">Participantes anteriores</label>
+                  <p class="display-6">Participantes anteriores</p>
                 </div>
             
             </div>

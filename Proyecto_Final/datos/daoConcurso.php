@@ -129,6 +129,23 @@ class DAOConcurso
         }
 	}
 
+    public function cambiarConcursos($id){
+        try 
+		{
+			$sql = "UPDATE concurso SET estatus = 0 WHERE id_Concurso != ?;";
+
+            $this->conectar();
+            
+            $sentenciaSQL = $this->conexion->prepare($sql);
+			$sentenciaSQL->execute([$id]);
+            return true;
+		} catch (PDOException $e){
+			return false;
+		}finally{
+            Conexion::desconectar();
+        }
+    }
+
     public function agregar(concurso $obj)
 	{
         $clave=0;

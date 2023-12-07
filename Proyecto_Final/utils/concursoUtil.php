@@ -70,13 +70,24 @@
                     header("Location: concursos.php");
                 }
             }else{
-                if($dao->editar($concurso)){
-                    $_SESSION["msj"]="success-El usuario ha sido almacenado exitósamente";
-                    //Al finalizar el guardado redireccionar a la lista
-                    //header("Location: IndexAdmin.php");
+                if($concurso->estatus){
+                    if( $dao->editar($concurso) && $dao->cambiarConcursos($concurso->id)){                    
+                        $_SESSION["msj"]="success-El usuario ha sido almacenado exitósamente";
+                        //Al finalizar el guardado redireccionar a la lista
+                        header("Location: concurso.php");
+                    }else{
+                        $_SESSION["msj"]="danger-Error al intentar guardar";
+                    }        
                 }else{
-                    $_SESSION["msj"]="danger-Error al intentar guardar";
+                    if( $dao->editar($concurso)){                    
+                        $_SESSION["msj"]="success-El usuario ha sido almacenado exitósamente";
+                        //Al finalizar el guardado redireccionar a la lista
+                        header("Location: concurso.php");
+                    }else{
+                        $_SESSION["msj"]="danger-Error al intentar guardar";
+                    }
                 }
+                
             }
         }
 

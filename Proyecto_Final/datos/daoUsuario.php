@@ -18,6 +18,40 @@ class DAOUsuario
 		}
     }
     
+	public function Autenticar($usuario, $contrasenia){
+		try
+		{ 
+            $this->conectar();
+            
+            //Almacenará el registro obtenido de la BD
+			$obj = new Usuario(); 
+            
+			$sentenciaSQL = $this->conexion->prepare("SELECT id_Usuario, nombre, institucion, tipo FROM usuario WHERE usuario
+			 LIKE ? AND contrasenia LIKE sha2(?,224);"); 
+			//Se ejecuta la sentencia sql con los parametros dentro del arreglo 
+            $sentenciaSQL->execute(array($usuario,$contrasenia));
+            
+            /*Obtiene los datos*/
+			$fila=$sentenciaSQL->fetch(PDO::FETCH_OBJ);
+			if($fila){
+                $obj = new Usuario();
+                
+                $obj->id = $fila->id_Usuario;
+                $obj->nombre = $fila->nombre;
+                $obj->institucion = $fila->institucion;
+                $obj->tipo = $fila->tipo;
+            
+                return $obj;
+            }
+            return null;
+		}
+		catch(Exception $e){
+            return null;
+		}finally{
+            Conexion::desconectar();
+        }
+	}
+
 	public function obtenerTodos()
 	{
 		try
