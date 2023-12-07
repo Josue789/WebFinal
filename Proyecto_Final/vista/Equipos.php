@@ -13,6 +13,13 @@
 </head>
 <body>
 <?php
+
+  session_start();
+  if(!ISSET($_SESSION["usuario"]) || $_SESSION["tipo"]=="Coach"){
+   header("Location:login.php");
+  }elseif(!ISSET($_POST["id"])){
+    header("Location: concursos.php");
+  }
   // Carga daoConcurso
   require_once('../datos/daoEquipo.php'); 
   require_once('../utils/EquiposUtil.php'); 
