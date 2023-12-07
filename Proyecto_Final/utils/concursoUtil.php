@@ -62,12 +62,19 @@
             $dao= new DAOConcurso();
             
             if($concurso->id==0){
-                if($dao->agregar($concurso)==0){
+                $id=$dao->agregar($concurso);
+                if($id==0){
                     $_SESSION["msj"]="danger-Error al intentar guardar";
                 }else{
-                    $_SESSION["msj"]="success-El usuario ha sido almacenado exitósamente";
-                    //Al finalizar el guardado redireccionar a la lista
-                    header("Location: concursos.php");
+                    if($concurso->estatus){
+                        if( $dao->cambiarConcursos($id)){                    
+                            $_SESSION["msj"]="success-El usuario ha sido almacenado exitósamente";
+                            //Al finalizar el guardado redireccionar a la lista
+                            header("Location: concursos.php");
+                        }else{
+                            $_SESSION["msj"]="danger-Error al intentar guardar";
+                        }        
+                    }
                 }
             }else{
                 if($concurso->estatus){
