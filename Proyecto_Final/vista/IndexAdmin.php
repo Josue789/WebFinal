@@ -67,7 +67,7 @@
       <div class="container-lg ">
        
         <div class="container mb-3">
-          <label class="display-3">Usuarios</label>
+          <h1>Usuarios</h1>
           <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
             <button class="btn btn-outline-secondary" type="button" id="button-addon2"><span class="material-symbols-outlined">

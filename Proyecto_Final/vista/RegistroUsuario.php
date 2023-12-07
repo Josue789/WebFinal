@@ -41,7 +41,7 @@
 
                 <div class="col-12 mt-5">
 
-                    <label class="display-3 mt-4 mb-3">Nuevo usuario </label>
+                    <h1>Nuevo usuario </h1>
                     <form method="post" class="needs-validation" novalidate>
                         <input hidden type="text" name="id" value="<?= $usuario->id ?>">
 
