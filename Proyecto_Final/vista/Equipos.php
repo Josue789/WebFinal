@@ -21,7 +21,7 @@
     $dao = new daoEquipo();
     //Cambiar
     if($dao->ChangeEstatus($_POST["idEquipo"])){
-      header("Location: Equipos.php");
+      header("Location: concursos.php");
     }else{
       $_SESSION["msj"]="danger-No se ha podido validar el equipo seleccionado";
     }

@@ -74,7 +74,7 @@
                     if( $dao->editar($concurso) && $dao->cambiarConcursos($concurso->id)){                    
                         $_SESSION["msj"]="success-El usuario ha sido almacenado exitósamente";
                         //Al finalizar el guardado redireccionar a la lista
-                        header("Location: concurso.php");
+                        header("Location: concursos.php");
                     }else{
                         $_SESSION["msj"]="danger-Error al intentar guardar";
                     }        
@@ -82,7 +82,7 @@
                     if( $dao->editar($concurso)){                    
                         $_SESSION["msj"]="success-El usuario ha sido almacenado exitósamente";
                         //Al finalizar el guardado redireccionar a la lista
-                        header("Location: concurso.php");
+                        header("Location: concursos.php");
                     }else{
                         $_SESSION["msj"]="danger-Error al intentar guardar";
                     }

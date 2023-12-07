@@ -81,6 +81,7 @@
                   <th scope="col">Categoria</th>
                   <th scope="col">Fecha concurso</th>
                   <th scope="col">Fecha Inscripcion</th>
+                  <th scope="col">Estatus</th>
                   <th scope="col">Acciones</th>
                 </tr>
               </thead>
@@ -98,6 +99,7 @@
                                 <td>$concurso->descripcion</td>
                                 <td>$concurso->fechaInicio</td>
                                 <td>$concurso->fechaFin</td>
+                                <td>".($concurso->estatus?"<span class='badge text-bg-success'>Activo</span>":"<span class='badge text-bg-dark'>Inactivo</span>")."</td>
                                 <td>
                                 <form method='post'>".
                                   "<button formaction='Equipos.php' class='btn btn-warning m-1' name='id' value='".$concurso->id."'>ver equipos</button>".
