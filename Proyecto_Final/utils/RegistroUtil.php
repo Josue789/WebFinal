@@ -43,7 +43,6 @@
         $coach->tipo="Coach";
 
         if ($valido) {
-            echo "Valido";
             //Usar el método agregar del dao
             $dao= new DAOUsuario();
             

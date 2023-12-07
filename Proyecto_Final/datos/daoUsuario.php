@@ -84,7 +84,7 @@ class DAOUsuario
 	}
     
     public function obtenerUno($id_Usuario)
-{
+	{
     try
     {
         $this->conectar();
@@ -109,7 +109,55 @@ class DAOUsuario
     } finally {
         Conexion::desconectar();
     }
-}
+	}
+
+	public function obtenerUnoUsuario($usuario){
+		try
+		{
+			$this->conectar();
+			$obj = null; 
+			$sentenciaSQL = $this->conexion->prepare("SELECT * FROM Usuario WHERE usuario=?"); 
+			$sentenciaSQL->execute([$usuario]);
+			$fila = $sentenciaSQL->fetch(PDO::FETCH_OBJ);
+
+				$obj = new Usuario();
+				$obj->id = $fila->id_Usuario;
+				$obj->nombre = $fila->nombre;
+				$obj->institucion = $fila->institucion;
+				$obj->usuario = $fila->usuario;
+				$obj->contrasenia = $fila->contrasenia;
+				$obj->tipo = $fila->tipo;
+			
+
+			return $obj;
+		}
+		catch(Exception $e){
+			return null;
+		} finally {
+			Conexion::desconectar();
+		}
+	}
+
+	public function cambiarContrasenia($usuario,$contrasenia){
+		try 
+		{
+			$sql = "UPDATE Usuario
+			SET
+			contrasenia = sha2(?,224)
+			WHERE id_Usuario = ?;";
+
+            $this->conectar($contrasenia,$usuario);
+            
+            $sentenciaSQL = $this->conexion->prepare($sql);
+			$sentenciaSQL->execute(array($contrasenia,$usuario));
+            return true;
+		} catch (PDOException $e){
+			echo $e;
+			return false;
+		}finally{
+            Conexion::desconectar();
+        }
+	}
 
 	public function eliminar($id_Usuario)
 	{
@@ -127,9 +175,6 @@ class DAOUsuario
 		}finally{
             Conexion::desconectar();
         }
-
-		
-        
 	}
 
 	public function editar(Usuario $obj)

@@ -58,7 +58,7 @@
                                      </div>
                                  </div>
                                  <div class="caja-secundaria ">
-                                     <span><a href="#">Olvide mi contraseña</a></span>
+                                     <span><a href="RecuperarContrasenia.php">Olvide mi contraseña</a></span>
                                  </div>
                             </div>
                             </div>
