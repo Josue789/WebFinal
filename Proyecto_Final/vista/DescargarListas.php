@@ -77,7 +77,10 @@
             <div class="offcanvas-body">
               <div>
                 <nav class="nav flex-column nav-underline">
-                  <a class="nav-link "  href="IndexAdmin.php">Usuarios</a>
+                <?php session_start(); 
+                  if ($_SESSION["tipo"]=="Admin") { 
+                    echo "<a class='nav-link'  href='IndexAdmin.php'>Usuarios</a>"; 
+                  }?> 
                   <a class="nav-link" href="concursos.php">Concursos</a>
                   <a class="nav-link active" aria-current="page" href="#">Descargar listas</a>
                   <a class="btn btn-danger" href="login.php" >Cerrar sesion</a>

@@ -12,7 +12,7 @@
     <?php
     //Revisa si hay alguien logueado
     session_start();
-    if(!ISSET($_SESSION["usuario"]) || $_SESSION["tipo"]=="Coach"){
+    if(!ISSET($_SESSION["usuario"]) || $_SESSION["tipo"]=="Coach" || $_SESSION["tipo"]=="Auxiliar"){
         header("Location:login.php");
     }
 

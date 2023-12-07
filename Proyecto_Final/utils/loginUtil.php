@@ -16,8 +16,10 @@
 
             if($usuario->tipo=="Coach"){
                 header("Location: index.php");
-            }else{
+            }elseif($usuario->tipo=="Admin"){
                 header("Location: indexAdmin.php");
+            }else{
+                header("Location: concursos.php");
             }
             return;
         }else{
