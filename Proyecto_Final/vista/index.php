@@ -44,13 +44,10 @@
         <div id="carouselExampleInterval" class="carousel slide w-100" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active w-100" data-bs-interval="5000">
-              <img src="img/image-not-found-1-scaled-1150x647.png" width="100%" height="150px" class="d-block w-100" alt="...">
+              <img src="img/BannersIndex/Publicidad1.png" width="100%" height="150px" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item w-100" data-bs-interval="5000">
-              <img src="img/image-not-found-1-scaled-1150x647.png" width="100%" height="150px" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item w-100" data-bs-interval="5000">
-              <img src="img/image-not-found-1-scaled-1150x647.png" width="100%" height="150px" class="d-block w-100" alt="...">
+              <img src="img/BannersIndex/Publicidad2.png" width="100%" height="150px" class="d-block w-100" alt="...">
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">

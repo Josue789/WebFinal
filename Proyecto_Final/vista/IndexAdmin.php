@@ -69,7 +69,7 @@
        
         <div class="container mb-3">
           <h1>Usuarios</h1> 
-          <table id="lista" class="table table-info table-striped table-bordered">
+          <table id="lista" class="table table-info table-info  table-striped table-bordered">
               <thead>
                 <tr>
                   <th scope="col">Nombre</th>
@@ -165,7 +165,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/IndexAdmin.js"></script>
+    <script src="js/concurso.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="dt/jQuery-3.7.0/jquery-3.7.0.min.js"></script>
     <script src="dt/DataTables-1.13.6/js/jquery.dataTables.min.js"></script>
