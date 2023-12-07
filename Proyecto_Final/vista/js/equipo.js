@@ -1,8 +1,12 @@
-let mdlConfirmacion;
+$(document).ready(function() {
+    let mdlConfirmacion;
 
-document.addEventListener('DOMContentLoaded', () => {
-    mdlConfirmacion = document.getElementById('mdlConfirmacion');
-    mdlConfirmacion.addEventListener('show.bs.modal', event => {
+    mdlConfirmacion = new bootstrap.Modal(document.getElementById('mdlConfirmacion'), {
+        backdrop: 'static',
+        keyboard: false
+    });
+
+    mdlConfirmacion._element.addEventListener('show.bs.modal', function (event) {
         let clave = event.relatedTarget.value;
         // Cargar el nombre de la persona a eliminar tomado de la primera celda
         document.getElementById("spnPersona").innerText =
@@ -22,18 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
         searching: true,
     });
 
-
     const searchInput = $('input[type="search"]');
     searchInput.on('input', function () {
         const searchValue = $(this).val();
         $('#lista').DataTable().search(searchValue).draw();
     });
-});
 
-function confirmar(btn) {
-    // Colocar en el span el nombre de quien eliminar
-    const mdlEliminar = new bootstrap.Modal('#mdlConfirmacion', {
-        backdrop: 'static'
-    });
-    mdlEliminar.show(btn);
-}
+    function confirmar(btn) {
+        // Colocar en el span el nombre de quien eliminar
+        mdlConfirmacion.show(btn);
+    }
+
+    window.confirmar = confirmar;
+});

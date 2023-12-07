@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">    
     <link rel="stylesheet" href="css/Registro.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
+    <link rel="stylesheet" href="dt/DataTables-1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="dt/Buttons-2.4.2/css/buttons.bootstrap5.min.css">
 </head>
 <body>
 <?php
@@ -67,14 +68,8 @@
       <div class="container-lg ">
        
         <div class="container mb-3">
-          <h1>Usuarios</h1>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2"><span class="material-symbols-outlined">
-              search
-              </span></button>
-          </div>
-          <table class="table table-info">
+          <h1>Usuarios</h1> 
+          <table id="lista" class="table table-info table-striped table-bordered">
               <thead>
                 <tr>
                   <th scope="col">Nombre</th>
@@ -171,5 +166,18 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/IndexAdmin.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="dt/jQuery-3.7.0/jquery-3.7.0.min.js"></script>
+    <script src="dt/DataTables-1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="dt/DataTables-1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="dt/Buttons-2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="dt/Buttons-2.4.2/js/buttons.bootstrap5.min.js"></script>
+    <script src="dt/JSZip-3.10.1/jszip.min.js"></script>
+    <script src="dt/pdfmake-0.2.7/pdfmake.min.js"></script>
+    <script src="dt/pdfmake-0.2.7/vfs_fonts.js"></script>
+    <script src="dt/Buttons-2.4.2/js/buttons.html5.min.js"></script>
+    <script src="dt/Buttons-2.4.2/js/buttons.print.min.js"></script>
+    <script src="dt/Buttons-2.4.2/js/buttons.colVis.min.js"></script>
+
 </body>
 </html>
