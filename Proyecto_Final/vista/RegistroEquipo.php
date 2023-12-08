@@ -128,7 +128,12 @@
                                         <input name="participante1" type="text" class="form-control <?=$valParticipante1?>" id="floatingInput" value="<?= $equipo->estudiante1 ?>" required>
                                         <label for="floatingInput">Nombre participante 1</label>
                                         <div class="invalid-tooltip">
-                                            Campo obligatorio
+                                            Campo obligatorio   
+                                            <ul>
+                                                <li>Debe tener por lo menos 3</li>
+                                                <li>Puede tener maximo 51 caracteres</li>
+                                                <li>Solo se permiten letras, numeros y los caracteres #,+,.,-</li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>

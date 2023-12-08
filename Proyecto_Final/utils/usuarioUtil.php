@@ -25,13 +25,22 @@
         }
 
         // ? Validacion de usuario
-        if(ISSET($_POST["Usuario"]) && 
+        if (ISSET($_POST["Tipo"])=="Coach") {
+            if(ISSET($_POST["Usuario"]) && filter_var( $_POST["Usuario"] , FILTER_VALIDATE_EMAIL)){
+                $valCorreo="is-valid";
+              }else{
+                  $valido=false;
+              }
+        }else{
+            if(ISSET($_POST["Usuario"]) && 
           (strlen(trim($_POST["Usuario"]))>3 && strlen(trim($_POST["Usuario"]))<51) &&
             preg_match("/^[a-zA-Z]+$/",$_POST["Usuario"])){
-            $valUsuario="is-valid";
-        }else{
-            $valido=false;
+                $valUsuario="is-valid";
+            }else{
+                $valido=false;
+            }
         }
+        
 
         // ? Validacion de contrasenia
         // ! Si la el id es 0 (es un nuevo registro), se hace esta validacion

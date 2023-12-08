@@ -23,7 +23,7 @@
             UNSET($_SESSION["msj"]);}
     ?>
     <div>
-        <div class="row align-items-stretch">
+        <div class="contenedor row align-items-stretch">
             <div class="col caja-izquierda p-4">
                 <div class="caja-principal">
                     <div class="align-self-start">
